@@ -6,7 +6,7 @@ include_directories(
     ${Boost_INCLUDE_DIRS}
     ${OpenCV_INCLUDE_DIRS}
     ${TBB_INCLUDE_DIRS}
-    ${pupiltracker_SOURCE_DIR}/lib
+    ${pupiltracker_SOURCE_DIR}/include
 )
 link_directories(
     ${OpenCV_LIB_DIR}

@@ -17,5 +17,34 @@ if (NOT MSVC)
     endif ()
 endif ()
 
-add_subdirectory (lib)
+
+find_package (OpenCV REQUIRED)
+find_package (Boost REQUIRED)
+find_package (TBB REQUIRED)
+
+add_library (
+    pupiltracker
+
+    src/PupilTracker.cpp
+    src/cvx.cpp
+    src/utils.cpp
+)
+
+include_directories(
+    SYSTEM
+    ${Boost_INCLUDE_DIRS}
+    ${OpenCV_INCLUDE_DIRS}
+    ${TBB_INCLUDE_DIRS}
+)
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/include    
+)
+
+install(TARGETS pupiltracker
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib)
+install(DIRECTORY include
+        DESTINATION include)
+
+
 add_subdirectory (cmd)
