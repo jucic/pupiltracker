@@ -3,4 +3,4 @@ syntax: glob
 *.swp
 *.swo
 tags
-build*
+/build
