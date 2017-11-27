@@ -30,6 +30,7 @@ add_library (
     src/utils.cpp
 )
 
+target_link_libraries(pupiltracker pthread)
 include_directories(
     SYSTEM
     ${Boost_INCLUDE_DIRS}
@@ -37,7 +38,7 @@ include_directories(
     ${TBB_INCLUDE_DIRS}
 )
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/include    
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 install(TARGETS pupiltracker
