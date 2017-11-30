@@ -44,7 +44,7 @@ install(TARGETS pupiltracker
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib)
 install(DIRECTORY include
-        DESTINATION include)
+        DESTINATION "")
 
 
 add_subdirectory (cmd)
