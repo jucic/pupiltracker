@@ -1,13 +1,76 @@
 #ifndef __PUPIL_TRACKER_UTILS_H__
 #define __PUPIL_TRACKER_UTILS_H__
 
+#include <iostream>
 #include <string>
 #include <vector>
 #include <set>
 #include <sstream>
+#include <fstream>
 #include <stdexcept>
+#include <map>
+#include <algorithm>
+#include <iomanip>
 
 namespace pupiltracker {
+class ConfigFile {
+  public:
+    bool read(std::string file) {
+      std::ifstream fin(file);
+      if (!fin.is_open()) {
+        std::cout << "Can not find file " << file << std::endl;
+        return false;
+      }
+      while(!fin.eof()) {
+        std::string line;
+        std::getline(fin, line);
+        size_t pos = line.find(":");
+        line.erase(std::remove(line.begin(), line.end(), ' '), line.end());
+        if (pos == std::string::npos) {
+            continue;
+        }
+        std::string key = line.substr(0, pos);
+        std::string value = line.substr(pos + 1);
+        key_value[key] = value;
+      }
+      fin.close();
+      return true;
+    }
+    void write(std::string file) {
+      std::ofstream fout(file);
+      if (!fout.is_open()) {
+        std::cout << "Can not open file " << file << std::endl;
+      }
+      for (const auto & it : key_value) {
+        fout << it.first << ": " << it.second << "\n";
+      }
+      fout.close();
+    }
+
+    template<typename T>
+    T get(const std::string key) {
+      auto it = key_value.find(key);
+      if (it == key_value.end()) return T();
+      else {
+        std::string value = key_value[key];
+        std::stringstream ss(value);
+        T ret;
+        ss >> ret;
+        return ret;
+      }
+    }
+    template<typename T>
+    void set(const std::string& key, T value) {
+      std::stringstream ss;
+      ss << std::setprecision(8) << value;
+      key_value[key] = ss.str();
+    }
+    void clear() {
+      key_value.clear();
+    }
+  private:
+    std::map<std::string, std::string> key_value;
+};
 
 class MakeString
 {

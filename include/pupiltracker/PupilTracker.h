@@ -10,6 +10,8 @@
 #include <pupiltracker/timer.h>
 #include <pupiltracker/ConicSection.h>
 
+#include <fstream>
+
 namespace pupiltracker {
 
 struct tracker_log
@@ -57,7 +59,22 @@ struct TrackerParams
     int EarlyTerminationPercentage;
     bool EarlyRejection;
     int Seed;
+
+    bool load(std::string file) {
+      std::ifstream fin(file);
+      if (!fin.is_open()) return false;
+      fin >> Radius_Min >> Radius_Max
+        >> CannyBlur >> CannyThreshold1 >> CannyThreshold2
+        >> StarburstPoints
+        >> PercentageInliers >> InlierIterations 
+        >> ImageAwareSupport
+        >> EarlyTerminationPercentage >> EarlyRejection 
+        >> Seed;
+      return true;
+    }
 };
+
+
 
 const cv::Point2f UNKNOWN_POSITION = cv::Point2f(-1,-1);
 
