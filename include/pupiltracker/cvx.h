@@ -10,7 +10,6 @@
 namespace pupiltracker {
 
 const double SQRT_2 = std::sqrt(2.0);
-const double PI = CV_PI;
 
 namespace cvx
 {

@@ -455,7 +455,7 @@ bool pupiltracker::findPupilEllipse(
 
             BOOST_FOREACH(const cv::Point2f& centre, centres) {
                 tbb::parallel_for(0, params.StarburstPoints, [&] (int i) {
-                    double theta = i * 2*PI/params.StarburstPoints;
+                    double theta = i * 2* CV_PI /params.StarburstPoints;
 
                     // Initialise centre and direction vector
                     cv::Point2f pDir((float)std::cos(theta), (float)std::sin(theta));  
@@ -667,7 +667,7 @@ bool pupiltracker::findPupilEllipse(
                         for (int i = 0; i < params.InlierIterations; ++i)
                         {
                             // Get error scale for 1px out on the minor axis
-                            cv::Point2f minorAxis(-std::sin(PI/180.0*ellipseInlierFit.angle), std::cos(PI/180.0*ellipseInlierFit.angle));
+                            cv::Point2f minorAxis(-std::sin(CV_PI /180.0*ellipseInlierFit.angle), std::cos(CV_PI /180.0*ellipseInlierFit.angle));
                             cv::Point2f minorAxisPlus1px = ellipseInlierFit.center + (ellipseInlierFit.size.height/2 + 1)*minorAxis;
                             float errOf1px = conicInlierFit.distance(minorAxisPlus1px);
                             float errorScale = 1.0f/errOf1px;
