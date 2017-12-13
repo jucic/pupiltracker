@@ -15,7 +15,7 @@ void imshowscale(const std::string& name, cv::Mat& m, double scale)
 
 int main(int argc, char* argv[])
 {
-  if (argc < 2) {
+  if (argc < 3) {
     std::cerr << "Need filename" << std::endl;
     return 1;
   }
@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 
   pupiltracker::TrackerParams params;
   pupiltracker::ConfigFile cgf;
-  cgf.read("../cgf/params.cgf");
+	if (!cgf.read(argv[2])) return 3;
   params.Radius_Min = cgf.get<int>("Radius_Min");
   params.Radius_Max = cgf.get<int>("Radius_Max");
 
@@ -44,7 +44,6 @@ int main(int argc, char* argv[])
   params.EarlyTerminationPercentage = cgf.get<int>("EarlyTerminationPercentage");
   params.EarlyRejection = cgf.get<int>("EarlyRejection");
   params.Seed = cgf.get<int>("Seed");
-
 
   cv::Mat m;
   while (true)
@@ -74,13 +73,13 @@ int main(int argc, char* argv[])
 
     std::cout << out.pPupil << std::endl;
 
-    //imshowscale("Haar Pupil", out.mHaarPupil, 3);
-    //imshowscale("Pupil", out.mPupil, 3);
-    //imshowscale("Thresh Pupil", out.mPupilThresh, 3);
-    //imshowscale("Edges", out.mPupilEdges, 3);
-    //cv::imshow("Result", m);
+    imshowscale("Haar Pupil", out.mHaarPupil, 3);
+    imshowscale("Pupil", out.mPupil, 3);
+    imshowscale("Thresh Pupil", out.mPupilThresh, 3);
+    imshowscale("Edges", out.mPupilEdges, 3);
+    cv::imshow("Result", m);
 
-    //if (cv::waitKey(10) != -1)
-    //  break;
+    if (cv::waitKey(10) == 27)
+      break;
   }
 }

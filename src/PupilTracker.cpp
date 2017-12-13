@@ -190,8 +190,7 @@ bool pupiltracker::findPupilEllipse(
                 std::pair<double,cv::Point2f> minValOut = minValIn;
                 for (int i = range.begin(), y = r + range.begin()*ystep; i < range.end(); i++, y += ystep)
                 {
-                    //            ¦         ¦
-                    // row1_outer.|         |  p00._____________________.p01
+                    //            ?        ?                    // row1_outer.|         |  p00._____________________.p01
                     //            |         |     |         Haar kernel |
                     //            |         |     |                     |
                     // row1_inner.|         |     |   p00._______.p01   |
@@ -202,8 +201,7 @@ bool pupiltracker::findPupilEllipse(
                     //            |         |     |                     |
                     // row2_outer.|         |     |_____________________|
                     //            |         |  p10'                     'p11
-                    //            ¦         ¦
-
+                    //            ?        ?
                     int* row1_inner = mEyeIntegral[y+padding - r_inner];
                     int* row2_inner = mEyeIntegral[y+padding + r_inner + 1];
                     int* row1_outer = mEyeIntegral[y+padding - r_outer];
