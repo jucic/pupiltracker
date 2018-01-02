@@ -22,14 +22,6 @@ find_package (OpenCV REQUIRED)
 find_package (Boost REQUIRED)
 find_package (TBB REQUIRED)
 
-add_library (
-  pupiltracker
-
-  src/PupilTracker.cpp
-  src/cvx.cpp
-  src/utils.cpp
-  )
-
 include_directories(
   SYSTEM
   ${Boost_INCLUDE_DIRS}
@@ -40,7 +32,35 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include    
   )
 
-install(TARGETS pupiltracker
+add_library (
+  pupiltracker
+  SHARED
+
+  src/PupilTracker.cpp
+  src/cvx.cpp
+  src/utils.cpp
+  )
+set_target_properties(pupiltracker PROPERTIES OUTPUT_NAME "pupiltracker")
+
+add_library (
+  pupiltracker_static
+  STATIC
+  src/PupilTracker.cpp
+  src/cvx.cpp
+  src/utils.cpp
+  )
+set_target_properties(pupiltracker_static PROPERTIES OUTPUT_NAME "pupiltracker")
+
+
+target_link_libraries(
+  pupiltracker
+  ${OpenCV_LIBS}
+  ${TBB_LIBRARIES}
+  )
+
+
+
+install(TARGETS pupiltracker pupiltracker_static
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib)
 

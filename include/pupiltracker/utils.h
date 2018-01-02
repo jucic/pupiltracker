@@ -13,7 +13,7 @@
 #include <iomanip>
 
 namespace pupiltracker {
-class ConfigFile {
+class ConfigParser {
   public:
     bool read(std::string file) {
       std::ifstream fin(file);

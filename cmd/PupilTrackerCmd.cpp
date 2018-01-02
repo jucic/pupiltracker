@@ -28,22 +28,22 @@ int main(int argc, char* argv[])
   }
 
   pupiltracker::TrackerParams params;
-  pupiltracker::ConfigFile cgf;
-  cgf.read("../cgf/params.cgf");
-  params.Radius_Min = cgf.get<int>("Radius_Min");
-  params.Radius_Max = cgf.get<int>("Radius_Max");
+  pupiltracker::ConfigParser parser;
+  parser.read("../cgf/params.cgf");
+  params.Radius_Min = parser.get<int>("Radius_Min");
+  params.Radius_Max = parser.get<int>("Radius_Max");
 
-  params.CannyBlur = cgf.get<int>("CannyBlue");
-  params.CannyThreshold1 = cgf.get<int>("CannyThreshold1");
-  params.CannyThreshold2 = cgf.get<int>("CannyThreshold2");
-  params.StarburstPoints = cgf.get<int>("StarburstPoints");
+  params.CannyBlur = parser.get<int>("CannyBlue");
+  params.CannyThreshold1 = parser.get<int>("CannyThreshold1");
+  params.CannyThreshold2 = parser.get<int>("CannyThreshold2");
+  params.StarburstPoints = parser.get<int>("StarburstPoints");
 
-  params.PercentageInliers = cgf.get<int>("PercentageInliers");
-  params.InlierIterations = cgf.get<int>("InlierIterations");
-  params.ImageAwareSupport = cgf.get<bool>("ImageAwareSupport");
-  params.EarlyTerminationPercentage = cgf.get<int>("EarlyTerminationPercentage");
-  params.EarlyRejection = cgf.get<int>("EarlyRejection");
-  params.Seed = cgf.get<int>("Seed");
+  params.PercentageInliers = parser.get<int>("PercentageInliers");
+  params.InlierIterations = parser.get<int>("InlierIterations");
+  params.ImageAwareSupport = parser.get<bool>("ImageAwareSupport");
+  params.EarlyTerminationPercentage = parser.get<int>("EarlyTerminationPercentage");
+  params.EarlyRejection = parser.get<int>("EarlyRejection");
+  params.Seed = parser.get<int>("Seed");
 
 
   cv::Mat m;
