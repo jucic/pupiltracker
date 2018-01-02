@@ -190,8 +190,7 @@ bool pupiltracker::findPupilEllipse(
                 std::pair<double,cv::Point2f> minValOut = minValIn;
                 for (int i = range.begin(), y = r + range.begin()*ystep; i < range.end(); i++, y += ystep)
                 {
-                    //            ¦         ¦
-                    // row1_outer.|         |  p00._____________________.p01
+                    //            ?        ?                    // row1_outer.|         |  p00._____________________.p01
                     //            |         |     |         Haar kernel |
                     //            |         |     |                     |
                     // row1_inner.|         |     |   p00._______.p01   |
@@ -202,8 +201,7 @@ bool pupiltracker::findPupilEllipse(
                     //            |         |     |                     |
                     // row2_outer.|         |     |_____________________|
                     //            |         |  p10'                     'p11
-                    //            ¦         ¦
-
+                    //            ?        ?
                     int* row1_inner = mEyeIntegral[y+padding - r_inner];
                     int* row2_inner = mEyeIntegral[y+padding + r_inner + 1];
                     int* row1_outer = mEyeIntegral[y+padding - r_outer];
@@ -457,7 +455,7 @@ bool pupiltracker::findPupilEllipse(
 
             BOOST_FOREACH(const cv::Point2f& centre, centres) {
                 tbb::parallel_for(0, params.StarburstPoints, [&] (int i) {
-                    double theta = i * 2*PI/params.StarburstPoints;
+                    double theta = i * 2* CV_PI /params.StarburstPoints;
 
                     // Initialise centre and direction vector
                     cv::Point2f pDir((float)std::cos(theta), (float)std::sin(theta));  
@@ -669,7 +667,7 @@ bool pupiltracker::findPupilEllipse(
                         for (int i = 0; i < params.InlierIterations; ++i)
                         {
                             // Get error scale for 1px out on the minor axis
-                            cv::Point2f minorAxis(-std::sin(PI/180.0*ellipseInlierFit.angle), std::cos(PI/180.0*ellipseInlierFit.angle));
+                            cv::Point2f minorAxis(-std::sin(CV_PI /180.0*ellipseInlierFit.angle), std::cos(CV_PI /180.0*ellipseInlierFit.angle));
                             cv::Point2f minorAxisPlus1px = ellipseInlierFit.center + (ellipseInlierFit.size.height/2 + 1)*minorAxis;
                             float errOf1px = conicInlierFit.distance(minorAxisPlus1px);
                             float errorScale = 1.0f/errOf1px;

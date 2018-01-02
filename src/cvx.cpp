@@ -148,11 +148,11 @@ cv::RotatedRect pupiltracker::cvx::fitEllipse(const cv::Moments& m)
     if (num == 0 && den == 0)
         ret.angle = 0;
     else
-        ret.angle = (180/PI) * std::atan2(num,den);
+        ret.angle = (180/CV_PI) * std::atan2(num,den);
 
     return ret;
 }
 cv::Vec2f pupiltracker::cvx::majorAxis(const cv::RotatedRect& ellipse)
 {
-    return cv::Vec2f(ellipse.size.width*std::cos(PI/180*ellipse.angle), ellipse.size.width*std::sin(PI/180*ellipse.angle));
+    return cv::Vec2f(ellipse.size.width*std::cos(CV_PI /180*ellipse.angle), ellipse.size.width*std::sin(CV_PI /180*ellipse.angle));
 }
