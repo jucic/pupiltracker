@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
   }
 
   pupiltracker::TrackerParams params;
-  pupiltracker::ConfigParser parser;
+  pupiltracker::ConfigFile parser;
   parser.read("../cgf/params.cgf");
   params.Radius_Min = parser.get<int>("Radius_Min");
   params.Radius_Max = parser.get<int>("Radius_Max");
