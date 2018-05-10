@@ -15,13 +15,13 @@ void imshowscale(const std::string& name, cv::Mat& m, double scale)
 
 int main(int argc, char* argv[])
 {
-  if (argc < 3) {
-    std::cerr << "Need filename" << std::endl;
+  if (argc < 2) {
+    std::cerr << "Need CameraName" << std::endl;
     return 1;
   }
 
   std::cout << "Opening " << argv[1] << std::endl;
-  cv::VideoCapture vc(argv[1]);
+  cv::VideoCapture vc(argv[1][0]-'0');
   if (!vc.isOpened()) {
     std::cerr << "Could not open " << argv[1] << std::endl;
     return 2;
@@ -48,10 +48,11 @@ int main(int argc, char* argv[])
   while (true)
   {
     vc >> m;
+    cv::resize(m,m,cv::Size(320,180));
     if (m.empty())
     {
       vc.release();
-      vc.open(argv[1]);
+      vc.open(argv[1][0]-'0');
       if (!vc.isOpened()) {
         std::cerr << "Could not open " << argv[1] << std::endl;
         return 2;
